@@ -16,7 +16,7 @@
     `
 5. app.js
    `
-    import 'dotenv\config'
+    import 'dotenv/config'
    `
 > ![alt text](https://res.cloudinary.com/ecommercer2021/image/upload/v1656487859/babel-node_gdvaek.jpg) 
 > <br />
