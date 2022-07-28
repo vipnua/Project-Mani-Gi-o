@@ -14,23 +14,23 @@ app.use(express.json());
 app.use("/api",postRouter);
 
 // connect db
-
-const conn = mongoose.createConnection("mongodb://localhost:27017/trangtin");
-conn.on("connected", function(){
-console.log(`kết nối thành công với mongoose ::: ${this.name}`);
-})
-conn.on('error', function(error){
-console.log(`MongooseError:: error: ${JSON.stringify(error)}`);
-});
-conn.on('disconnected', function(){
-    console.log(`MongooseError:: disconnected: ${this.name}`);
-});
-process.on('SIGINT',async()=>{
-    await conn.close();
-    process.exit(0);
-})
-module.exports =conn;
-
+const  connection = mongoose.connect("mongodb://localhost:27017/trangtin",()=>{console.log("connection successfully")});
+// const conn = mongoose.createConnection("mongodb://127.101/trangtin");
+// conn.on("connected", function(){
+// console.log(`kết nối thành công với mongoose ::: ${this.name}`);
+// })
+// conn.on('error', function(error){
+// console.log(`MongooseError:: error: ${JSON.stringify(error)}`);
+// });
+// conn.on('disconnected', function(){
+//     console.log(`MongooseError:: disconnected: ${this.name}`);
+// });
+// process.on('SIGINT',async()=>{
+//     await conn.close();
+//     process.exit(0);
+// })
+// module.exports =conn;
+module.exports = connection;
 app.listen(process.env.PORT, () => {
     console.log("Kết nối thành công, cổng " + process.env.PORT);
 });
