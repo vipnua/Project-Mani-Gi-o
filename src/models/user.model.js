@@ -15,8 +15,10 @@ const userSchema = mongoose.Schema(
         },
         Mobile: {
             type: String,//số đt
+            required: true,
+            minlength: 9,
         },
-        Email: {
+        email: {
             type: String, //mail
             required: true,
         },
@@ -25,46 +27,46 @@ const userSchema = mongoose.Schema(
             minlength: 6,
         },
         RegisterAt: {
-            type:Date,
+            type: Date,
             timestamps: true
-            },
-        Last_Login: {
-            type:Date,        
-            },    
-        Last_Login: {
-            type:Date,        
-            }, 
-        Intro:{
-            type:String, // Giới thiệu về user
         },
-        Profile:{
-            type:String, // Chi tiết về tác user
+        Last_Login: {
+            type: Date,
+        },
+        Last_Login: {
+            type: Date,
+        },
+        Intro: {
+            type: String, // Giới thiệu về user
+        },
+        Profile: {
+            type: String, // Chi tiết về tác user
         },
         role: {
             type: Number,
             default: 0,
         },
     },
-   
+
 );
 
-// userSchema.methods = {
-//     authenticate(password) {
-//         console.log("2");
-//         return this.password === this.encrytPassword(password);
-//     },
-//     encrytPassword: (password) => {
-//         if (!password) return;
-//         try {
-//             return createHmac("sha256", "abc").update(password).digest("hex");
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     },
-// };
+userSchema.methods = {
+    authenticate(password) {
+        console.log("2");
+        return this.password === this.encrytPassword(password);
+    },
+    encrytPassword: (password) => {
+        if (!password) return;
+        try {
+            return createHmac("sha256", "abc").update(password).digest("hex");
+        } catch (error) {
+            console.log(error);
+        }
+    },
+};
 
-// userSchema.pre("save", function (next) {
-//     this.password = this.encrytPassword(this.password);
-//     next();
-// });
+userSchema.pre("save", function (next) {
+    this.password = this.encrytPassword(this.password);
+    next();
+});
 export default mongoose.model("User", userSchema);
