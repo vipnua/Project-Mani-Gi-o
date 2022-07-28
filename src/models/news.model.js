@@ -17,8 +17,8 @@ const category_schema = mongoose.Schema({
 const comment_post_Schema = mongoose.Schema({
     Category_name: {type:String,default:null},
     Published:{type:Boolean,default:true},//ẩn category
-})
+});
 
-module.exports = mongoose.model('post',post_schema);
-module.exports = mongoose.model('category',category_schema);
-module.exports = mongoose.model('commentpost',comment_post_Schema);
+export const Post = mongoose.model('post',post_schema);
+export const Category = mongoose.model('category',category_schema);
+export const Comment = mongoose.model('commentpost',comment_post_Schema);

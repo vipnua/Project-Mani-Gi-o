@@ -1,7 +1,7 @@
-import postModel from "../models/news.model";
+import { Post } from "../models/news.model";
 export const list = async (req, res) => {
     try {
-        const data = await postModel.post.find();
+        const data = await Post.find();
         res.json(data);
     } catch (error) {
         res.status(400).json({

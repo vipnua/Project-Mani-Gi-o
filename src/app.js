@@ -19,6 +19,7 @@ app.use("/api", postRouter);
 
 // connect db
 
+<<<<<<< HEAD
 // const conn = mongoose.createConnection("mongodb://localhost:27017/trangtin");
 // conn.on("connected", function () {
 //     console.log(`kết nối thành công với mongoose ::: ${this.name}`);
@@ -41,6 +42,14 @@ app.use("/api", postRouter);
 
 mongoose.connect("mongodb://localhost:27017/trangtin", () => {
     console.log("successfully");
+=======
+const conn = mongoose.createConnection("mongodb://localhost:27017/trangtin");
+conn.on("connected", function(){
+console.log(`kết nối thành công với mongoose ::: ${this.name}`);
+})
+conn.on('error', function(error){
+console.log(`MongooseError:: error: ${JSON.stringify(error)}`);
+>>>>>>> a5e9fb9b37fa52384600e2cc70dffa6bd8b17aca
 });
 
 app.listen(process.env.PORT, () => {
