@@ -15,7 +15,7 @@ app.use("/api",postRouter);
 
 // connect db
 
-const conn = mongoose.createConnection("mongodb://127.0.0.1:27017/trangtin");
+const conn = mongoose.connect("mongodb://localhost:27017/trangtin",()=>{console.log('connect successful')});
 conn.on("connected", function(){
 console.log(`kết nối thành công với mongoose ::: ${this.name}`);
 })

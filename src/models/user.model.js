@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose =require ('mongoose');
 import { createHmac } from "crypto";
 
 const userSchema = mongoose.Schema(
@@ -24,16 +24,6 @@ const userSchema = mongoose.Schema(
             type: String,
             minlength: 6,
         },
-        RegisterAt: {
-            type:Date,
-            timestamps: true
-            },
-        Last_Login: {
-            type:Date,        
-            },    
-        Last_Login: {
-            type:Date,        
-            }, 
         Intro:{
             type:String, // Giới thiệu về user
         },
@@ -67,4 +57,5 @@ const userSchema = mongoose.Schema(
 //     this.password = this.encrytPassword(this.password);
 //     next();
 // });
-export default mongoose.model("User", userSchema);
+
+module.exports = mongoose.model('User',userSchema);
