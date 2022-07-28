@@ -8,4 +8,5 @@ route.post('/add-post', Add);
 route.delete('/delete-post/:id', Delete);
 route.patch('/update-post/:id', Update);
 
+
 module.exports = route;
