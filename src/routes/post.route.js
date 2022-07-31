@@ -1,12 +1,12 @@
-import express from "express"
+import express from "express";
 import { Add, Delete, list, Read, Update } from "../controllers/post.controller";
-const route = express.Router();
+const router = express.Router();
 
-route.get('/', list);
-route.get('/post/:id', Read);
-route.post('/add-post', Add);
-route.delete('/delete-post/:id', Delete);
-route.patch('/update-post/:id', Update);
+router.get('/', list);
+router.get('/post/:id', Read);
+router.post('/add-post', Add);
+router.delete('/delete-post/:id', Delete);
+router.patch('/update-post/:id', Update);
 
 
-module.exports = route;
+export default router;

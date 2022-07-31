@@ -2,10 +2,9 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
-import postRouter from './routes/post.route'
 import mongoose from "mongoose";
 import AuthRouter from './routes/auth.route'
-
+import postRouter from './routes/post.route'
 
 const app = express();
 
@@ -17,7 +16,7 @@ app.use(express.json());
 // connect db
 
 mongoose.connect("mongodb://localhost:27017/trangtin", () => {
-    console.log("Successfully");
+    console.log("Successfully")});
 
 app.use("/api", AuthRouter);
 app.use("/api", postRouter);
@@ -25,7 +24,6 @@ app.use("/api", postRouter);
 mongoose.connect("mongodb://localhost:27017/trangtin", () => {
     console.log("successfully");
 });
-module.exports = connection;
 
 
 app.listen(process.env.PORT, () => {
