@@ -15,9 +15,12 @@ const category_schema = mongoose.Schema({
     Published: { type: Boolean, default: true },//ẩn category
 });
 const comment_post_Schema = mongoose.Schema({
-    Category_name: { type: String, default: null },
-    Published: { type: Boolean, default: true },//ẩn category
-})
-export const Post = mongoose.model('post', post_schema);
-export const Category = mongoose.model('category', category_schema);
-export const PostComment = mongoose.model('commentpost', comment_post_Schema);
+
+    Category_name: {type:String,default:null},
+    Published:{type:Boolean,default:true},//ẩn category
+});
+
+export const Post = mongoose.model('post',post_schema);
+export const Category = mongoose.model('category',category_schema);
+export const Comment = mongoose.model('commentpost',comment_post_Schema);
+

@@ -5,6 +5,7 @@ export const list = async (req, res) => {
         res.json({
             Posts
         });
+
     } catch (error) {
         res.status(400).json({
             error: "Không có Post nào",
