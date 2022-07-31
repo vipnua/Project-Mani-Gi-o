@@ -19,22 +19,10 @@ app.use("/api", postRouter);
 
 // connect db
 
-// <<<<<<< HEAD
 // const conn = mongoose.createConnection("mongodb://localhost:27017/trangtin");
 // conn.on("connected", function () {
 //     console.log(`kết nối thành công với mongoose ::: ${this.name}`);
 // })
-// conn.on('error', function (error) {
-//     console.log(`MongooseError:: error: ${JSON.stringify(error)}`);
-// });
-// conn.on('disconnected', function () {
-//     console.log(`MongooseError:: disconnected: ${this.name}`);
-// });
-// process.on('SIGINT', async () => {
-//     await conn.close();
-//     process.exit(0);
-// })
-// module.exports = conn;
 
 // app.listen(process.env.PORT, () => {
 //     console.log("Kết nối thành công, cổng " + process.env.PORT);
@@ -43,6 +31,9 @@ app.use("/api", postRouter);
 mongoose.connect("mongodb://localhost:27017/trangtin", () => {
     console.log("successfully");
 });
+
+
+module.exports = connection;
 
 app.listen(process.env.PORT, () => {
     console.log("Kết nối thành công, cổng " + process.env.PORT);
