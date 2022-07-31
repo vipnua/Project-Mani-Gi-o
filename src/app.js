@@ -21,11 +21,6 @@ mongoose.connect("mongodb://localhost:27017/trangtin", () => {
 app.use("/api", AuthRouter);
 app.use("/api", postRouter);
 
-mongoose.connect("mongodb://localhost:27017/trangtin", () => {
-    console.log("successfully");
-});
-
-
 app.listen(process.env.PORT, () => {
     console.log("Kết nối thành công, cổng " + process.env.PORT);
 });
