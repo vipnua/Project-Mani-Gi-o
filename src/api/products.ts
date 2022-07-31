@@ -2,8 +2,8 @@ import instance from "./config"
 export const apiGet = (config:String) =>{
     return instance.get(`${config}`);
 }
-export const getAll = () => {
-    return instance.get('product');
+export const getAll = async() => {
+    return  instance.get('product');
 }
 export const getOne = (id:String) => {
     return instance.get(`/product/${id}`);
