@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import postRouter from './routes/post.route'
+import AuthRouter from './routes/auth.route'
 const mongoose = require("mongoose");
 
 const app = express();
@@ -11,26 +12,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api",postRouter);
+
+
+app.use("/api", AuthRouter);
+app.use("/api", postRouter);
 
 // connect db
-const  connection = mongoose.connect("mongodb://localhost:27017/trangtin",()=>{console.log("connection successfully")});
-// const conn = mongoose.createConnection("mongodb://127.101/trangtin");
-// conn.on("connected", function(){
-// console.log(`kết nối thành công với mongoose ::: ${this.name}`);
+
+// const conn = mongoose.createConnection("mongodb://localhost:27017/trangtin");
+// conn.on("connected", function () {
+//     console.log(`kết nối thành công với mongoose ::: ${this.name}`);
 // })
-// conn.on('error', function(error){
-// console.log(`MongooseError:: error: ${JSON.stringify(error)}`);
+
+// app.listen(process.env.PORT, () => {
+//     console.log("Kết nối thành công, cổng " + process.env.PORT);
 // });
-// conn.on('disconnected', function(){
-//     console.log(`MongooseError:: disconnected: ${this.name}`);
-// });
-// process.on('SIGINT',async()=>{
-//     await conn.close();
-//     process.exit(0);
-// })
-// module.exports =conn;
+
+mongoose.connect("mongodb://localhost:27017/trangtin", () => {
+    console.log("successfully");
+});
+
+
 module.exports = connection;
+
 app.listen(process.env.PORT, () => {
     console.log("Kết nối thành công, cổng " + process.env.PORT);
 });

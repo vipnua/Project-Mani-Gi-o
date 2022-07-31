@@ -1,4 +1,4 @@
-const mongoose =require ('mongoose');
+import mongoose from "mongoose";
 import { createHmac } from "crypto";
 
 const userSchema = mongoose.Schema(
@@ -15,8 +15,10 @@ const userSchema = mongoose.Schema(
         },
         Mobile: {
             type: String,//số đt
+            required: true,
+            minlength: 9,
         },
-        Email: {
+        email: {
             type: String, //mail
             required: true,
         },
@@ -24,38 +26,47 @@ const userSchema = mongoose.Schema(
             type: String,
             minlength: 6,
         },
-        Intro:{
-            type:String, // Giới thiệu về user
+        RegisterAt: {
+            type: Date,
+            timestamps: true
         },
-        Profile:{
-            type:String, // Chi tiết về tác user
+        Last_Login: {
+            type: Date,
+        },
+        Last_Login: {
+            type: Date,
+        },
+        Intro: {
+            type: String, // Giới thiệu về user
+        },
+        Profile: {
+            type: String, // Chi tiết về tác user
         },
         role: {
             type: Number,
             default: 0,
         },
     },
-   
+
 );
 
-// userSchema.methods = {
-//     authenticate(password) {
-//         console.log("2");
-//         return this.password === this.encrytPassword(password);
-//     },
-//     encrytPassword: (password) => {
-//         if (!password) return;
-//         try {
-//             return createHmac("sha256", "abc").update(password).digest("hex");
-//         } catch (error) {
-//             console.log(error);
-//         }
-//     },
-// };
+userSchema.methods = {
+    authenticate(password) {
+        console.log("2");
+        return this.password === this.encrytPassword(password);
+    },
+    encrytPassword: (password) => {
+        if (!password) return;
+        try {
+            return createHmac("sha256", "abc").update(password).digest("hex");
+        } catch (error) {
+            console.log(error);
+        }
+    },
+};
 
-// userSchema.pre("save", function (next) {
-//     this.password = this.encrytPassword(this.password);
-//     next();
-// });
-
-module.exports = mongoose.model('User',userSchema);
+userSchema.pre("save", function (next) {
+    this.password = this.encrytPassword(this.password);
+    next();
+});
+export default mongoose.model("User", userSchema);
