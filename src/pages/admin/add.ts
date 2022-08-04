@@ -4,15 +4,15 @@ import { uploadFile } from "../../config";
 import { Product } from "../../models/products";
 
 const addProduct = {
-    async render(){
+    async render() {
 
-          const data =  await getAll();
-          const category:Product[] = data.data;
-          let categories = category.map(i => i.category)
-          categories = categories.filter(function(item, pos) {
-              return categories.indexOf(item) == pos;
-          })
-            return /*html*/`
+        // const data = await getAll();
+        // const category: Product[] = data.data;
+        // let categories = category.map(i => i.category)
+        // categories = categories.filter(function (item, pos) {
+        //     return categories.indexOf(item) == pos;
+        // })
+        return /*html*/`
             ${AdminHeader.render()}
                    <h1 class=" pl-3 py-2 pt-5 text-[#5F5E61] text-2xl"> Thêm sản phẩm mới </h1>
             <form id="addform"> 
@@ -53,7 +53,7 @@ const addProduct = {
                             <div class="flex flex-col py-2"> 
                                 <label class="py-2">Danh mục</label>
                                 <select class="border rounded py-1 w-1/2" id="category" name="category">
-                                ${categories.map(c => ` <option value="${c}">${c}</option>`).join('')}            
+                                    <option value="Điện thoại">Điện thoại</option>      
                                  </select>
                             </div>
                             <div class=""> 
@@ -76,15 +76,15 @@ const addProduct = {
             </form>
             `
     },
-    afterRender(){
+    afterRender() {
         const form = document.querySelector('#addform')
-        const name:any = document.querySelector('#name');
-        const originalPrice:any = document.querySelector('#originalPrice');
-        const sellerPrice:any = document.querySelector('#sellerPrice');
-        const category:any = document.querySelector('#category');
-        const longDescription:any = document.querySelector('#longDescription');
-        const description:any = document.querySelector('#description');
-        const image:any = document.querySelector('#image');
+        const name: any = document.querySelector('#name');
+        const originalPrice: any = document.querySelector('#originalPrice');
+        const sellerPrice: any = document.querySelector('#sellerPrice');
+        const category: any = document.querySelector('#category');
+        const longDescription: any = document.querySelector('#longDescription');
+        const description: any = document.querySelector('#description');
+        const image: any = document.querySelector('#image');
         // const demoimage:any =  document.querySelector('.profile-pic')
 
         // image.addEventListener('load',(e)=>{
@@ -92,46 +92,56 @@ const addProduct = {
         //     console.log(image)
         // })
 
-    form?.addEventListener('submit',async (e)=>{
+        form?.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            async function  validate() {
-                if(name.value == "" ) {
-                   alert( "làm ơn nhập tên!" );
-                   name.focus();
-                   return false;
-                }    
-                if(originalPrice.value == "" ) {
-                    alert( "làm ơn nhập giá gốc" );
+
+            async function validate() {
+                if (name.value == "") {
+                    alert("làm ơn nhập tên!");
+                    name.focus();
+                    return false;
+                }
+                if (originalPrice.value == "") {
+                    alert("làm ơn nhập giá gốc");
                     originalPrice.focus();
                     return false;
-                 }   
-                 if(image.files[0] == undefined) {
-                    alert( "làm ơn nhập ảnh" );
+                }
+                if (image.files[0] == undefined) {
+                    alert("làm ơn nhập ảnh");
                     image.focus();
                     return false;
-                 }            
+                }
                 else {
                     let urlimage = null;
-              if(image.value){
-              urlimage =  await (await uploadFile(image.files[0])).data.url
-            }
-            const product ={
-                    name : name.value,
-                    originalPrice:originalPrice.value,
-                    sellerPrice: sellerPrice.value,
-                    category: category.value,
-                    longDescription: longDescription.value,
-                    description: description.value,            
-                    images:{thumbnail:urlimage,
-                    image:urlimage} ,
-            }
-            const data =  await add(product).then(result=>alert('thanh cong'));
+                    if (image.value) {
+                        urlimage = image.value
+                    }
+                    const product = {
+                        name: name.value,
+                        originalPrice: originalPrice.value,
+                        sellerPrice: sellerPrice.value,
+                        category: category.value,
+                        longDescription: longDescription.value,
+                        description: description.value,
+                        images: {
+                            thumbnail: urlimage,
+                            image: urlimage
+                        },
+                    }
+                    console.log(product);
+
+                    const data = await add(product)
+                    console.log(data);
+
+                    if (data) {
+                        alert("Thêm thành công")
+                        location.href = "/admin"
+                    }
                 }
-             }
-            validate();          
+            }
+            validate();
             // console.log(data)
-    })
+        })
     }
 }
 export default addProduct

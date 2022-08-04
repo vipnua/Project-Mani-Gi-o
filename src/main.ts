@@ -7,16 +7,16 @@ import homeadmin from './pages/admin/home';
 import addProduct from './pages/admin/add';
 import updateProduct from './pages/admin/update';
 import productDetail from './pages/detail';
-import express from 'express';
+// import express from 'express';
 const router = new Navigo('/');
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
-  render: (id:any) => Promise<string>;
-  afterRender?: (id:any) => void
+  render: (id: any) => Promise<string>;
+  afterRender?: (id: any) => void
 }
-const print = async(component:ComponentBase,params?: any)=>{
+const print = async (component: ComponentBase, params?: any) => {
   app.innerHTML = await component.render(params);
-  if(component.afterRender) {
+  if (component.afterRender) {
     await component.afterRender(params)
   }
 }
@@ -24,11 +24,11 @@ const print = async(component:ComponentBase,params?: any)=>{
 
 
 router.on({
-  '/':()=>print(Home,""),
-  '/product/:id':(param:any)=>{const id = +param.data.id;print(productDetail,id);},
-  '/admin':()=>print(homeadmin,""),
-  '/admin/add':()=>print(addProduct,""),
-  '/admin/update/:id':(param:any)=>{const id = +param.data.id;print(updateProduct,id);},
-  '/signup':()=>print(signUp,''),
+  '/': () => print(Home, ""),
+  '/product/:id': (param: any) => { const id = +param.data.id; print(productDetail, id); },
+  '/admin': () => print(homeadmin, ""),
+  '/admin/add': () => print(addProduct, ""),
+  '/admin/update/:id': (param: any) => { const id = param.data.id; print(updateProduct, id); },
+  '/signup': () => print(signUp, ''),
 })
 router.resolve();
