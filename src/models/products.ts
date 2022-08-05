@@ -18,8 +18,6 @@ export class Product {
         this.images = images;
         this._id = _id;
     }
-
-
 }
 import cellphone from './product.interface';
 import mongoose from 'mongoose';
