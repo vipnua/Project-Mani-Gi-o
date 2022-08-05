@@ -1,4 +1,4 @@
-import { add, getAll, getOne, update } from "../../api/products";
+import { getAll, getOne, update } from "../../api/products";
 import AdminHeader from "../../components/admin/header";
 import { uploadFile } from "../../config";
 import { Product } from "../../models/products";
@@ -6,7 +6,16 @@ import { Product } from "../../models/products";
 const updateProduct = {
     async render(id: any) {
         const data = await getAll();
-        const dataone = await (await getOne(id)).data;
+        const dataDetail = await (await getOne(id));
+        const dataone: Product[] = dataDetail.data
+        console.log(dataone);
+
+        const dataCate: any[] = data.data.product
+        let categories = dataCate.map(i => i.category)
+        categories = categories.filter(function (item, pos) {
+            return categories.indexOf(item) == pos;
+        })
+
         //   const category:Product[] = data.data;
         //   let categories = category.map(i => i.category)
         //   categories = categories.filter(function(item, pos) {
@@ -18,19 +27,19 @@ const updateProduct = {
             <form id="addform"> 
                 <div class="flex">
                     <div class="basis-5/12">
-                            <div class=" flex justify-center h-60 relative ">
-                                    <div class="flex flex-col justify-center">
-                                        <div class="flex justify-center">
+                            <div class=" flex justify-center h-60 relative mb-3">
+                                <div class="flex flex-col justify-center">
+                                    <div class="flex justify-center">
                                         <img class="profile-pic" src="">
-                                        <img class="imageshow" src="${dataone.images.image}" width="242"></div>
-                                        <input type="file" name="image" id="image" data-max-file-size="3MB"
-                                        data-max-files="3" class=" absolute opacity-0 bottom-15 w-20 h-20">              
+                                        <img class="imageshow" id="img" src="${dataone.images[0].image}" width="242">
                                     </div>
+                                    <input type="file" name="image" id="fileImg" data-max-file-size="3MB"
+                                    data-max-files="3" class=" absolute opacity-0 bottom-15 w-20 h-20">              
+                                </div>
                             </div>
                             <div>
                             <div class="flex justify-center"> 
-                            <textarea class="w-3/4 border rounded flex" id="description" name="description" rows="4" cols="50" placeholder="Mô tả ngắn" >${dataone.description}</textarea></div>
-                                      
+                                <textarea class="w-3/4 border rounded flex" id="description" name="description" rows="4" cols="50" placeholder="Mô tả ngắn" >${dataone.description}</textarea></div>
                             </div>
                         </div>
                      <div class="basis-7/12">
@@ -52,7 +61,9 @@ const updateProduct = {
                             <div class="flex flex-col py-2"> 
                                 <label class="py-2">Danh mục</label>
                                 <select class="border rounded py-1 w-1/2" id="category" name="category">
-                                    <option value="Điện thoại">Điện thoại</option>           
+                                    ${categories.map(item => `
+                                        <option value="${item}">${item}</option>
+                                    `).join('')}
                                  </select>
                             </div>
                             <div class=""> 
@@ -66,10 +77,14 @@ const updateProduct = {
                             <div class=""> 
                                 <label>Mô tả dài</label>
                                 <textarea class="w-full border rounded" id="longDescription" name="longDescription" rows="4" cols="50">${dataone.longDescription}</textarea>
-                                
-                                
                             </div>
-                            <button id="submit" class="rounded bg-blue-400 py-2 px-2 text-white" type="submit">Thêm mới</button>
+                            <div class="flex items-center space-x-2">
+                                <button id="submit" class="rounded bg-blue-400 py-2 px-2 text-white" type="submit">Thêm mới</button>
+                                <a href="/admin">
+                                    <button class="rounded bg-blue-400 py-2 px-2 text-white" type="button">Trở về</button>
+                                </a>
+                            </div>
+                            
                      </div>
                  </div>
             </form>
@@ -83,11 +98,17 @@ const updateProduct = {
         const category: any = document.querySelector('#category');
         const longDescription: any = document.querySelector('#longDescription');
         const description: any = document.querySelector('#description');
-        const image: any = document.querySelector('#image');
-        console.log(image.value)
+        const fileImg: any = document.querySelector('#fileImg');
+        const image: any = document.querySelector('#img');
 
         form?.addEventListener('submit', async (e) => {
             e.preventDefault();
+            let urlimage: String = ""
+            if (fileImg == "") {
+                urlimage = image.src
+            } else {
+                urlimage = await (await uploadFile(image.files[0])).data.url
+            }
 
             async function validate() {
                 if (name.value == "") {
@@ -99,20 +120,7 @@ const updateProduct = {
                     alert("làm ơn nhập giá gốc");
                     originalPrice.focus();
                     return false;
-                }
-
-                if (image.files[0] == undefined) {
-                    alert("làm ơn nhập ảnh");
-                    image.focus();
-                    return false;
-                }
-
-                else {
-
-                    let urlimage = null;
-                    if (image) {
-                        urlimage = await (await uploadFile(image.files[0])).data.url
-                    }
+                } else {
                     const product = {
                         name: name.value,
                         originalPrice: originalPrice.value,

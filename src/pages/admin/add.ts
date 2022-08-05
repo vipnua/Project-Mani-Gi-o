@@ -1,17 +1,18 @@
 import { add, getAll } from "../../api/products";
 import AdminHeader from "../../components/admin/header";
 import { uploadFile } from "../../config";
-import { Product } from "../../models/products";
 
 const addProduct = {
     async render() {
+        const data = await getAll();
 
-        // const data = await getAll();
-        // const category: Product[] = data.data;
-        // let categories = category.map(i => i.category)
-        // categories = categories.filter(function (item, pos) {
-        //     return categories.indexOf(item) == pos;
-        // })
+        const category: any[] = data.data.product;
+
+        let categories = category.map(i => i.category)
+        categories = categories.filter(function (item, pos) {
+            return categories.indexOf(item) == pos;
+        })
+
         return /*html*/`
             ${AdminHeader.render()}
                    <h1 class=" pl-3 py-2 pt-5 text-[#5F5E61] text-2xl"> Thêm sản phẩm mới </h1>
@@ -53,7 +54,9 @@ const addProduct = {
                             <div class="flex flex-col py-2"> 
                                 <label class="py-2">Danh mục</label>
                                 <select class="border rounded py-1 w-1/2" id="category" name="category">
-                                    <option value="Điện thoại">Điện thoại</option>      
+                                    ${categories.map(item => `
+                                        <option value="${item}">${item}</option>
+                                    `)}     
                                  </select>
                             </div>
                             <div class=""> 
@@ -114,7 +117,7 @@ const addProduct = {
                 else {
                     let urlimage = null;
                     if (image.value) {
-                        urlimage = image.value
+                        urlimage = await (await uploadFile(image.files[0])).data.url
                     }
                     const product = {
                         name: name.value,

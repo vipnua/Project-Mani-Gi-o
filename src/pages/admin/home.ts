@@ -1,35 +1,32 @@
 import { apiGet, getAll, remove } from "../../api/products";
 import AdminHeader from "../../components/admin/header";
 import { priceToVnd, reRender } from "../../config";
-import { Product } from "../../models/products";
+import Product from '../../models/product.interface'
 
 const homeadmin = {
     async render() {
-        const data = await getAll();
+        const paramUrl = new URLSearchParams(location.search);
+        const paramCate = new URLSearchParams(location.search)
+        const dataOg = await getAll()
+        let data = {}
 
-        const dataCate: any[] = data.data.product
+        const test = await apiGet('?q=abc')
+        console.log(test);
 
+        if (paramUrl.get('key')) {
+            data = await apiGet(`?q=${paramUrl.get('key')}`)
+        } else if (paramCate.get('key')) {
+            data = await apiGet(`?category=${paramCate.get('key')}`)
+        } else {
+            data = await apiGet("")
+        }
+        const Cellphone: Product[] = data.data.product;
 
-        // const datacellphone = await apiGet('/products?category=Điện thoại');
-        let Cellphone: any = {}
-        Cellphone = data.data.product;
+        const dataCate: any[] = dataOg.data.product
         let categories = dataCate.map(i => i.category)
         categories = categories.filter(function (item, pos) {
             return categories.indexOf(item) == pos;
         })
-
-        console.log(categories);
-
-        const paramUrl = new URLSearchParams(location.search);
-        const search = paramUrl.get('search');
-
-        if (search) {
-            const datacellphone = await apiGet(`/search?q=${search}`);
-            let cellphone: Product[] = datacellphone.data;
-            console.log(cellphone);
-
-            Cellphone = cellphone;
-        }
         // else {
         //     if (localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null) {
         //         const retrievedObject: any = localStorage.getItem('cellphone');
@@ -50,26 +47,24 @@ const homeadmin = {
                
                <div class="flex py-1">
                        <img class="px-4" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658180991/Layer_2_1__umlhlc.png">
-                       <div class="grow"><a id="cate" data-id="" href="">Điện thoại</a></div>                  
+                       <div class="grow"><a id="cate" data-id="" href="">Sản phẩm</a></div>                  
                    </div>
                
                    </div>
                        <div class="basis-10/12"> 
-                            <div class="flex">
+                            <div class="flex items-center">
                                 <div class="basis-1/2">
-                                    <h1>lấy dataid</h1>
-                                    <div class="flex">
-                                        <span class=" basis-2/12 font-bold px-3 py-3">Bộ lọc:</span>
+                                    <h1 class="text-2xl font-bold">Danh sách sản phẩm</h1>
+                                    <div class="flex items-center my-3">
+                                        <span class=" basis-2/12 font-bold py-3">Bộ lọc:</span>
                                         <div class="basis-10/12">
                                             <div>Danh mục sản phẩm</div>
                                             <div>
-
-                                            <select id="category" name="category">
-                                                ${categories.map(item => `
-                                                    <option value="${item}">${item}</option>
-                                                `)}          
-                                             </select>
-                                                
+                                                <select id="category" name="category" class="border mt-2 p-1">
+                                                    ${categories.map(item => `
+                                                        <option value="${item}">${item}</option>
+                                                    `)}          
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -131,37 +126,36 @@ const homeadmin = {
 
 
         const { data: data } = await getAll();
-        const category: any = document.querySelectorAll('#cate');
-        // console.log("category",category)
-        const products: any = document.querySelectorAll('#remove');
+        const btnRemove: any = document.querySelectorAll('#remove');
 
-        for (let product of products) {
-            product.addEventListener('click', async (e: any) => {
+        for (let btn of btnRemove) {
+            btn.addEventListener('click', async (e: any) => {
                 e.preventDefault();
-                const id = product.dataset.id;
+                const id = btn.dataset.id;
                 history.replaceState(null, null, `remove?id=${id}`)
 
                 const confirm = window.confirm('Are you sure you want to remove this product?');
                 if (confirm) {
                     const data = await remove(id);
-
                     reRender('#app', homeadmin);
-                    if (data) {
-                        alert('Remove product');
-                    }
+                    location.href = '/admin'
                 }
 
             })
         }
 
-        for (const categories of category) {
-            categories.addEventListener('click', (e: any) => {
+        const categories: any = document.querySelectorAll('#category');
+        for (const category of categories) {
+            category.addEventListener('change', (e: any) => {
                 e.preventDefault()
-                const elementcate = categories.dataset.id;
-                const followcate = data.filter((item: { category: any }) => { return item.category === elementcate });
-                localStorage.clear();
-                localStorage.setItem('cellphone', JSON.stringify(followcate))
-                reRender('#app', homeadmin)
+                history.replaceState(null, null, `category?key=${category.value}`)
+                reRender('#app', homeadmin);
+                // location.href = '/admin'
+                // const elementcate = categories.dataset.id;
+                // const followcate = data.filter((item: { category: any }) => { return item.category === elementcate });
+                // localStorage.clear();
+                // localStorage.setItem('cellphone', JSON.stringify(followcate))
+                // reRender('#app', homeadmin)
             })
         }
     }
