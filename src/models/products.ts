@@ -6,8 +6,8 @@ export class Product {
     longDescription?: String;
     category: String;
     images?: any;
-    id: String;
-    constructor(name:String, originalPrice:Number,sellerPrice:Number,description:String,longDescription:String,category:String,images:any,id:String) 
+    _id: String;
+    constructor(name:String, originalPrice:Number,sellerPrice:Number,description:String,longDescription:String,category:String,images:any,_id:String) 
     {
         this.name = name; 
         this.originalPrice = originalPrice; 
@@ -16,7 +16,7 @@ export class Product {
         this.longDescription = longDescription; 
         this.category = category; 
         this.images = images;
-        this.id = id;
+        this._id = _id;
     }
 
 
@@ -31,7 +31,6 @@ const ProductSchema = new mongoose.Schema({
     longDescription:{type:String},//Tiêu đề dài
     category:{type:String,required:true},//Loại
     images:{type:Array,required:true},
-    id:{type:String}
 },
 {
    timestamps:true

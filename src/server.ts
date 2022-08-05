@@ -16,7 +16,6 @@ app.use(express.json());
 mongoose.connect("mongodb+srv://we17101:manigiao@we17101.w9h0nyn.mongodb.net/We17101", () => {
     console.log("Successfully")});
     app.use("/api",productRouter)
-
 app.listen(process.env.port,()=>{
     console.log(`is running port ${process.env.PORT}`);
   })
