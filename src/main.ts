@@ -25,11 +25,11 @@ const print = async (component: ComponentBase, params?: any) => {
 }
 
 router.on({
-
   '/': () => print(Home, ""),
   '/product/:id': (param: any) => { const id = +param.data.id; print(productDetail, id); },
   '/admin': () => print(HomeMangage, ""),
   '/admin/product': () => print(homeadmin, ""),
+
   '/admin/add': () => print(addProduct, ""),
   '/admin/update/:id': (param: any) => { const id = param.data.id; print(updateProduct, id); },
   '/signup': () => print(signUp, ''),

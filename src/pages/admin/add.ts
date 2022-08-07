@@ -5,6 +5,7 @@ import { uploadFile } from "../../config";
 
 const addProduct = {
     async render() {
+
         const data = await getAll();
 
         const category: any[] = data.data.product;
@@ -28,7 +29,6 @@ const addProduct = {
                                         <h1 class="font-bold pl-2">Thêm mới sản phẩm</h1>
                                     </div>
                                 </div>
-
                                 <div>
                                     <form id="addform">
                                         <div class="flex">
@@ -143,6 +143,7 @@ const addProduct = {
                     let urlimage = null;
                     if (image.value) {
                         urlimage = await (await uploadFile(image.files[0])).data.url
+
                     }
                     const product = {
                         name: name.value,

@@ -5,6 +5,7 @@ import { uploadFile } from "../../config";
 import { Product } from "../../models/products";
 
 const updateProduct = {
+
     async render(id: String) {
         const data = await getAll();
         const dataDetail: any = await getOne(id);
@@ -28,8 +29,10 @@ const updateProduct = {
                                 <div class="bg-gray-800 pt-3 w-full">
                                     <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
                                         <h1 class="font-bold pl-2">Sửa sản phẩm</h1>
+
                                     </div>
                                 </div>
+
 
                                 <div class="pt-6">
                                     <form id="addform">
@@ -126,10 +129,12 @@ const updateProduct = {
                 urlimage = await (await uploadFile(image.files[0])).data.url
             }
 
+
             async function validate() {
                 if (name.value == "") {
                     alert("làm ơn nhập tên!");
                     name.focus();
+
                     return false;
                 }
                 if (originalPrice.value == "") {
@@ -137,6 +142,7 @@ const updateProduct = {
                     originalPrice.focus();
                     return false;
                 } else {
+
                     const product = {
                         name: name.value,
                         originalPrice: originalPrice.value,

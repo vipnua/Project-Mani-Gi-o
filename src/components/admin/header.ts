@@ -42,6 +42,16 @@ const AdminHeader = {
 								</li>
 							</ul>
 						</div>
+
+					<div class="basis-3/5"> 
+					 <div class="basis-4/12 static">
+					 <form>
+						<input id="sreach" class="w-2/4 py-2 pl-6 my-3 rounded text-black"type="text">
+						<img id="btnSearch" class="absolute w-6 pt-2" style="margin-top:-49px" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1654614957/search_lwjcp6.png">
+						<button  type="submit"></button>
+					</form>
+					</div>
+
 					</div>
 
 				</nav>

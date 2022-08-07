@@ -3,6 +3,7 @@ import AdminHeader from "../../components/admin/header"
 import navbarAdmin from "../../components/admin/nav"
 import { Product } from "../../models/products";
 
+
 const HomeMangage = {
     render: async () => {
         const data = await apiGet('')
@@ -52,6 +53,7 @@ const HomeMangage = {
                                                     <h2 class="font-bold uppercase text-gray-600">User Manage</h2>
                                                     <p class="font-bold text-3xl">0</p>
                                                 </div>
+
                                             </div>
                                         </div>
                                         <!--/Metric Card-->
@@ -117,6 +119,7 @@ const HomeMangage = {
                                         <!--/Metric Card-->
                                     </div>
                                 </div>
+
                             </div>
                         </section>
                     </div>
@@ -152,3 +155,4 @@ const HomeMangage = {
 }
 
 export default HomeMangage
+

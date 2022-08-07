@@ -18,9 +18,7 @@ export class Product {
         this.longDescription = longDescription;
         this.category = category;
         this.images = images;
-
         this._id = _id;
-
     }
 
 
