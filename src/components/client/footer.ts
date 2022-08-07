@@ -21,11 +21,11 @@ const footerClient ={
             </div>
             <div class="basis-1/4">
                 <div class="flex flex-col text-base">
-                    <span class="text-xs">Gọi mua hàng: 1800.2044 (8h20-20h20)</span>
-                    <span class="text-xs">Gọi khiếu nại: 1800.2063 (8h20-20h20)</span>
-                    <span class="text-xs">Gọi bảo hành: 1800.2064 (8h20-20h20)</span>
-                    <span class="text-xl font-semibold">Đối tác dịch vụ bảo hành</span>
-                    <span class="text-2xl font-semibold">Trung tâm bảo hành uỷ quyền Apple</span>
+                    <span class="text-xs py-1">Gọi mua hàng: 1800.2044 (8h20-20h20)</span>
+                    <span class="text-xs py-1">Gọi khiếu nại: 1800.2063 (8h20-20h20)</span>
+                    <span class="text-xs py-1">Gọi bảo hành: 1800.2064 (8h20-20h20)</span>
+                    <span class="text-xl font-semibold py-1">Đối tác dịch vụ bảo hành</span>
+                    <span class="text-2xl font-semibold py-1">Trung tâm bảo hành uỷ quyền Apple</span>
                     <div class="flex">     
                         <img src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658179617/Rectangle_5_pidpej.png">
                     </div>

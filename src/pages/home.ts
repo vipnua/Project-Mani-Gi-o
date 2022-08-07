@@ -1,10 +1,13 @@
 
-import { getAll, searchq } from "../api/products";
+
+import { getAll , searchq} from "../api/products";
+
 import eror404 from "../components/client/404";
 import footerClient from "../components/client/footer";
 import headerClient from "../components/client/header";
 import { priceToVnd, reRender } from "../config";
 import { Product } from '../models/products';
+
 
 const Home = {
     async render() {
@@ -14,6 +17,7 @@ const Home = {
         const category: Product[] = data.product;
         console.log(Cellphone);
 
+
         let categories = category.map(i => i.category)
         categories = categories.filter(function (item, pos) {
             return categories.indexOf(item) == pos;
@@ -21,6 +25,7 @@ const Home = {
         const paramUrl = new URLSearchParams(location.search);
 
         const search = paramUrl.get('search');
+
         if (search) {
             const datacellphone = await searchq(search);
             console.log(datacellphone)
@@ -28,21 +33,24 @@ const Home = {
             Cellphone = cellphone;
             if (datacellphone.data.length == 0) {
                 return `
+
                 ${headerClient.render()};
                 ${eror404.render()};
                 ${footerClient.render()};
                 `
-            }
-        } else {
-            if (localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null || undefined) {
-                const retrievedObject: any = localStorage.getItem('cellphone');
-                let cellphone = JSON.parse(retrievedObject);
-                Cellphone = cellphone;
-            }
-            else {
-                let cellphone: Product[] = Cellphone;
-                cellphone = Cellphone;
-            }
+
+             }
+        }else{
+            if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null|| undefined){
+            const retrievedObject:any = localStorage.getItem('cellphone');
+            let cellphone =  JSON.parse(retrievedObject);
+            Cellphone = cellphone;
+             } 
+             else{
+                let cellphone:Product[] = Cellphone;
+                cellphone = Cellphone;      
+            }  
+            
 
         }
         return /*html*/`
@@ -62,13 +70,13 @@ const Home = {
                 <div class="basis-9/12"><img src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658181122/Rectangle_6_cydnhs.png" width="1048px" height="382px" ></div>
         </div>
 
-        <h1 class="px-60 py-3">ĐIỆN THOẠI NỔI BẬT NHẤT</h1>
+        <h1 class="px-60 py-3">Sản phẩm</h1>
         <div class="grid gap-2 grid-cols-7 px-20">
         ${Cellphone.map(cell => /*html*/`
-               <a href="/product/${cell.id}">
+               <a href="/product/${cell._id}">
                
                <div class="box p-4">
-               <div class="flex justify-center p-2"><img class="" src="${cell.images[0]?.thumbnail}" width="160px"></div>
+               <div class="flex justify-center p-2"><img class="" src="${cell.images.thumbnail? cell.images.thumbnail :cell.images[0]?.thumbnail}" width="160px"></div>
                <h2 class="pb-6">${cell.name}</h2>
                <div class="flex">
                    <span class="basis-6/12 text-red-600">${(priceToVnd(Number(cell.sellerPrice)))}</span>
@@ -119,6 +127,7 @@ const Home = {
     },
     async afterRender() {
 
+
         const formSearch: any = document.querySelector('#search');
         console.log(formSearch)
         const btnSearch: any = document.querySelector('#btnSearch');
@@ -138,6 +147,7 @@ const Home = {
                 e.preventDefault()
                 const elementcate = categories.dataset.id;
                 const followcate = data.filter((item: { category: any }) => { return item.category === elementcate });
+
                 localStorage.clear();
                 localStorage.setItem('cellphone', JSON.stringify(followcate))
                 reRender('#app', Home)
