@@ -1,36 +1,44 @@
 
+
 import { getAll , searchq} from "../api/products";
+
 import eror404 from "../components/client/404";
 import footerClient from "../components/client/footer";
 import headerClient from "../components/client/header";
 import { priceToVnd, reRender } from "../config";
 import { Product } from '../models/products';
 
- const Home ={
-    async render(){
-        
-        const {data} =  await getAll();
-        
-        let Cellphone:Product[] = data.product;
-        const category:Product[] = data.product;
+
+const Home = {
+    async render() {
+
+        const { data } = await getAll();
+        let Cellphone: Product[] = data.product;
+        const category: Product[] = data.product;
+        console.log(Cellphone);
+
+
         let categories = category.map(i => i.category)
-        categories = categories.filter(function(item, pos) {
+        categories = categories.filter(function (item, pos) {
             return categories.indexOf(item) == pos;
         })
         const paramUrl = new URLSearchParams(location.search);
 
         const search = paramUrl.get('search');
-        if(search){
-            const datacellphone = await searchq(search);  
-            console.log(datacellphone)        
-            let cellphone:Product[] = datacellphone.data;  
-            Cellphone=cellphone;
-            if(datacellphone.data.length == 0){
-                return  `
+
+        if (search) {
+            const datacellphone = await searchq(search);
+            console.log(datacellphone)
+            let cellphone: Product[] = datacellphone.data;
+            Cellphone = cellphone;
+            if (datacellphone.data.length == 0) {
+                return `
+
                 ${headerClient.render()};
                 ${eror404.render()};
                 ${footerClient.render()};
                 `
+
              }
         }else{
             if(localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null|| undefined){
@@ -43,6 +51,7 @@ import { Product } from '../models/products';
                 cellphone = Cellphone;      
             }  
             
+
         }
         return /*html*/`
         ${headerClient.render()}
@@ -116,30 +125,35 @@ import { Product } from '../models/products';
         ${footerClient.render()}
         `
     },
-    async afterRender(){
+    async afterRender() {
 
-        const formSearch:any = document.querySelector('#search');
-        const btnSearch:any = document.querySelector('#btnSearch');
-        btnSearch.addEventListener('click', (e:any)=> {
-            e.preventDefault();
-                history.replaceState(null, '',`?search=${formSearch.value}`);
-                reRender('#app',Home);
+
+        const formSearch: any = document.querySelector('#search');
+        console.log(formSearch)
+        const btnSearch: any = document.querySelector('#btnSearch');
+        btnSearch.addEventListener('click', (e: any) => {
+
+            history.replaceState(null, '', `?search=${formSearch.value}`);
+            reRender('#app', Home);
         });
 
-        const {data:data} = await getAll();
-        const category:any = document.querySelectorAll('#cate');
-       
+
+
+        const { data: data } = await getAll();
+        const category: any = document.querySelectorAll('#cate');
+        // console.log("category",category)
         for (const categories of category) {
-            categories.addEventListener('click', (e: any) => 
-            {e.preventDefault()
-                const elementcate = categories.dataset.id;               
-                const followcate =data.product.filter((item: { category: any } )=> { return item.category === elementcate});             
+            categories.addEventListener('click', (e: any) => {
+                e.preventDefault()
+                const elementcate = categories.dataset.id;
+                const followcate = data.filter((item: { category: any }) => { return item.category === elementcate });
+
                 localStorage.clear();
-                localStorage.setItem('cellphone',JSON.stringify(followcate))            
-                reRender('#app',Home)
+                localStorage.setItem('cellphone', JSON.stringify(followcate))
+                reRender('#app', Home)
             })
         }
-     }
-            
+    }
+
 }
 export default Home;

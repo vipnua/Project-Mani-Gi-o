@@ -1,169 +1,158 @@
-import { apiGet, getAll, remove } from "../../api/products";
-import AdminHeader from "../../components/admin/header";
-import { priceToVnd, reRender } from "../../config";
+import { apiGet } from "../../api/products";
+import AdminHeader from "../../components/admin/header"
+import navbarAdmin from "../../components/admin/nav"
 import { Product } from "../../models/products";
 
-const homeadmin = {
-    async render() {
-        const data = await getAll();
 
-        const dataCate: any[] = data.data.product
+const HomeMangage = {
+    render: async () => {
+        const data = await apiGet('')
+        const Product: Product[] = data.data.product
 
+        return /*html */`
+            <div class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+                ${AdminHeader.render()}
+                <main>
+                    <div class="flex flex-col md:flex-row">
+                        ${navbarAdmin.render()}
+                        <section class="w-full max-h-full">
+                            <div id="main" class="main-content flex-1 bg-gray-100 h-full mt-12 md:mt-2 pb-24 md:pb-5">
 
-        // const datacellphone = await apiGet('/products?category=Điện thoại');
-        let Cellphone: any = {}
-        Cellphone = data.data.product;
-        let categories = dataCate.map(i => i.category)
-        categories = categories.filter(function (item, pos) {
-            return categories.indexOf(item) == pos;
-        })
-
-        console.log(categories);
-
-        const paramUrl = new URLSearchParams(location.search);
-        const search = paramUrl.get('search');
-
-        if (search) {
-            const datacellphone = await apiGet(`/search?q=${search}`);
-            let cellphone: Product[] = datacellphone.data;
-            console.log(cellphone);
-
-            Cellphone = cellphone;
-        }
-        // else {
-        //     if (localStorage.getItem('cellphone') != '' && localStorage.getItem('cellphone') != null) {
-        //         const retrievedObject: any = localStorage.getItem('cellphone');
-        //         let cellphone = JSON.parse(retrievedObject);
-        //         Cellphone = cellphone;
-        //     } else {
-        //         let cellphone: Product[] = datacellphone.data;
-        //         cellphone = Cellphone;
-        //     }
-        // }
-
-
-        return /*html*/`
-          ${AdminHeader.render()}
-          <div class=""> 
-               <div class="flex py-4">
-               <div class="basis-2/12">
-               
-               <div class="flex py-1">
-                       <img class="px-4" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658180991/Layer_2_1__umlhlc.png">
-                       <div class="grow"><a id="cate" data-id="" href="">Điện thoại</a></div>                  
-                   </div>
-               
-                   </div>
-                       <div class="basis-10/12"> 
-                            <div class="flex">
-                                <div class="basis-1/2">
-                                    <h1>lấy dataid</h1>
-                                    <div class="flex">
-                                        <span class=" basis-2/12 font-bold px-3 py-3">Bộ lọc:</span>
-                                        <div class="basis-10/12">
-                                            <div>Danh mục sản phẩm</div>
-                                            <div>
-
-                                            <select id="category" name="category">
-                                                ${categories.map(item => `
-                                                    <option value="${item}">${item}</option>
-                                                `)}          
-                                             </select>
-                                                
-                                            </div>
-                                        </div>
+                                <div class="bg-gray-800 pt-3 w-full">
+                                    <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                                        <h1 class="font-bold pl-2">Home</h1>
                                     </div>
                                 </div>
-                                <div class="basis-1/2">
-                                        <div class="flex justify-end"><a href="/admin/add"><img class="pr-16" src="https://res.cloudinary.com/dtd8tra0o/image/upload/v1658504103/Icon_lo8cnj.png"></a></div>
+
+                                <div class="flex flex-wrap">
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
+                                            
+                                                <div class="flex flex-row items-center">
+                                                    <div class="flex-shrink pr-4">
+                                                        <div class="rounded-full p-5 bg-blue-600"><i class="fas fa-server fa-2x fa-inverse"></i></div>
+                                                    </div>
+                                                    <div class="flex-1 text-right md:text-center">
+                                                        <h2 class="font-bold uppercase text-gray-600">Product Manage</h2>
+                                                        <p class="font-bold text-3xl">0</p>
+                                                    </div>
+                                                </div>
+                                            
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-xl p-5">
+                                            <div class="flex flex-row items-center">
+                                                <div class="flex-shrink pr-4">
+                                                    <div class="rounded-full p-5 bg-indigo-600"><i class="fas fa-tasks fa-2x fa-inverse"></i></div>
+                                                </div>
+                                                <div class="flex-1 text-right md:text-center">
+                                                    <h2 class="font-bold uppercase text-gray-600">User Manage</h2>
+                                                    <p class="font-bold text-3xl">0</p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
+                                            <div class="flex flex-row items-center">
+                                                <div class="flex-shrink pr-4">
+                                                    <div class="rounded-full p-5 bg-yellow-600"><i class="fas fa-user-plus fa-2x fa-inverse"></i></div>
+                                                </div>
+                                                <div class="flex-1 text-right md:text-center">
+                                                    <h2 class="font-bold uppercase text-gray-600">New Users</h2>
+                                                    <p class="font-bold text-3xl">0 <span class="text-yellow-600"><i class="fas fa-caret-up"></i></span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
+                                            <div class="flex flex-row items-center">
+                                                <div class="flex-shrink pr-4">
+                                                    <div class="rounded-full p-5 bg-green-600"><i class="fa fa-list fa-2x fa-inverse"></i></div>
+                                                </div>
+                                                <div class="flex-1 text-right md:text-center">
+                                                    <h2 class="font-bold uppercase text-gray-600">Total Products</h2>
+                                                    <p class="font-bold text-3xl">${Product.length} <span class="text-green-500"><i class="fas fa-caret-up"></i></span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5">
+                                            <div class="flex flex-row items-center">
+                                                <div class="flex-shrink pr-4">
+                                                    <div class="rounded-full p-5 bg-pink-600"><i class="fas fa-users fa-2x fa-inverse"></i></div>
+                                                </div>
+                                                <div class="flex-1 text-right md:text-center">
+                                                    <h2 class="font-bold uppercase text-gray-600">Total Users</h2>
+                                                    <p class="font-bold text-3xl">0 <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
+                                    <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                                        <!--Metric Card-->
+                                        <div class="bg-gradient-to-b from-red-200 to-red-100 border-b-4 border-red-500 rounded-lg shadow-xl p-5">
+                                            <div class="flex flex-row items-center">
+                                                <div class="flex-shrink pr-4">
+                                                    <div class="rounded-full p-5 bg-red-600"><i class="fas fa-inbox fa-2x fa-inverse"></i></div>
+                                                </div>
+                                                <div class="flex-1 text-right md:text-center">
+                                                    <h2 class="font-bold uppercase text-gray-600">Issues</h2>
+                                                    <p class="font-bold text-3xl">0 <span class="text-red-500"><i class="fas fa-caret-up"></i></span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--/Metric Card-->
+                                    </div>
                                 </div>
+
                             </div>
-
-
-                            <div class="content">
-
-                                <table class="table-auto">
-                                <thead>
-                                <tr class="bg-[#FBFBFB] border-y border-[#DEE2E6] text-center">
-                                    <th>#</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Thành tiền</th>
-                                    <th>Mô tả</th>
-                                    <th>Ẩn/hiện</th>
-                                    <th>Thao tác</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                
-                                ${Cellphone.map(cell =>
-                                    /*html*/`<tr>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">${cell._id}</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">${cell.name}</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">${priceToVnd(Number(cell.originalPrice))}</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">${cell.description}</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">Ẩn</td>
-                                    <td class="border-y border-[#DEE2E6] text-center px-1">
-                                   
-                                    <a class="bg-yellow-300 rounded px-1 py-1 my-1" href="/admin/update/${cell._id}">Sửa</a>
-                                    <button id="remove" class="bg-red-500 rounded px-1 py-1 my-1" data-id="${cell._id}">Xóa</button>
-                                    </td>
-                                    </tr>
-                                    `).join('')}
-                                                     
-                                </tbody>
-                            
-                            </div>
-                       </div>
-               </div>
-          </div>
-          
-          `
+                        </section>
+                    </div>
+                </main>
+            </div>
+        `
     },
-    async afterRender() {
+    afterRender: () => {
+        /*Toggle dropdown list*/
+        function toggleDD(myDropMenu: any) {
+            const dropMenu: any = document.getElementById(myDropMenu)
+            dropMenu.classList.toggle("invisible");
+        }
+        const btnToggle = document.getElementById('toggleClick')
+        btnToggle?.addEventListener('click', (e: any) => {
+            e.preventDefault()
+            toggleDD('myDropdown')
+        })
 
-        const formSearch: any = document.querySelector('#sreach');
-        const btnSearch: any = document.querySelector('#btnSearch');
-        btnSearch.addEventListener('click', (e: any) => {
-            e.preventDefault();
-            history.replaceState(null, null, `search?key=${formSearch.value}`);
-            reRender('#app', homeadmin);
-        });
-
-
-        const { data: data } = await getAll();
-        const category: any = document.querySelectorAll('#cate');
-        // console.log("category",category)
-        const products: any = document.querySelectorAll('#remove');
-
-        for (let product of products) {
-            product.addEventListener('click', async (e: any) => {
-                e.preventDefault();
-                const id = product.dataset.id;
-                history.replaceState(null, null, `remove?id=${id}`)
-
-                const confirm = window.confirm('Are you sure you want to remove this product?');
-                if (confirm) {
-                    const data = await remove(id);
-
-                    reRender('#app', homeadmin);
-                    if (data) {
-                        alert('Remove product');
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event: any) {
+            if (!event.target.matches('.drop-button') && !event.target.matches('.drop-search')) {
+                var dropdowns = document.getElementsByClassName("dropdownlist");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('invisible')) {
+                        openDropdown.classList.add('invisible');
                     }
                 }
-
-            })
-        }
-
-        for (const categories of category) {
-            categories.addEventListener('click', (e: any) => {
-                e.preventDefault()
-                const elementcate = categories.dataset.id;
-                const followcate = data.filter((item: { category: any }) => { return item.category === elementcate });
-                localStorage.clear();
-                localStorage.setItem('cellphone', JSON.stringify(followcate))
-                reRender('#app', homeadmin)
-            })
+            }
         }
     }
 }
-export default homeadmin;
+
+export default HomeMangage
+

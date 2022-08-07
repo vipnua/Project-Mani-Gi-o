@@ -66,20 +66,24 @@ export const Delete = async (Req: Request, Res: Response) => {
         });
     }
 }
+
 export const Search = async (Req:Request,Res:Response) =>{
     try{
         const getq = Req.originalUrl;const localword = getq.search("q?")+1;       
         const words = getq.slice(localword,9999);
+
         console.log(words)
         const product = await cellphone.aggregate().search({
             index: "searchProducts",
             text: {
+
                   query:`${words}`,
                   path: {
                     "wildcard": "*"
                   }
                 }
           });
+
         Res.json(
             product
         )
@@ -90,20 +94,24 @@ export const Search = async (Req:Request,Res:Response) =>{
         });
     }
 }
+
 export const Searchbycate= async (Req:Request,Res:Response) =>{
     try{
         const getq = Req.originalUrl;const localword = getq.search("t?")+1;       
         const words = getq.slice(localword,9999);
+
         console.log(words)
         const product = await cellphone.aggregate().search({
             index: "searchProducts",
             text: {
+
                   query:`{category:Điện thoại}`,
                   path: {
                     "wildcard": "*"
                   }
                 }
           });
+
         Res.json(
             product
         )

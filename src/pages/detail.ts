@@ -1,7 +1,10 @@
+
 import { Searchbycate, getOne } from "../api/products";
+
 import headerClient from "../components/client/header";
 import { priceToVnd } from "../config";
 import { Product } from "../models/products";
+
 
 const productDetail ={
    async render(id:any){
@@ -11,6 +14,7 @@ const productDetail ={
     console.log(likedata)
     const like:Product[] = likedata.data;
 return /*html*/`
+
 ${headerClient.render()}
     
     <div class="content pt-10 w-10/12 m-auto">
@@ -73,10 +77,10 @@ ${headerClient.render()}
             Đánh giá : :()
         </div>
         <div class="longdescription py-3">
-            <span>${data.longdescription?data.longdescription:''}</span></span>
+            <span>${data.longdescription ? data.longdescription : ''}</span></span>
         </div>
     </div>
 `
-    } 
+    }
 }
 export default productDetail;
