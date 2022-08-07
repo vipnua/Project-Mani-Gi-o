@@ -1,6 +1,8 @@
+
 import instance from "./config"
 export const apiGet = (config: String) => {
     return instance.get(`/product${config}`);
+
 }
 export const getAll = async () => {
     return instance.get(`/product`);
@@ -17,4 +19,9 @@ export const update = (id: String, data: any) => {
 export const remove = (id: String) => {
     return instance.delete(`/product/${id}`);
 }
-
+export const searchq = (url:string) => {
+    return instance.post(`/productq?${url}`);
+}
+export const Searchbycate = (url:string) => {
+    return instance.post(`/product?${url}`);
+}
