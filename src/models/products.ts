@@ -2,7 +2,7 @@ export class Product {
     name: String;
     originalPrice: Number;
     sellerPrice: Number;
-    description?:String;
+    description?: String;
     longDescription?: String;
     category: String;
     images?: any;
@@ -13,10 +13,10 @@ export class Product {
         this.originalPrice = originalPrice; 
         this.sellerPrice =sellerPrice; 
         this.description = description;
-        this.longDescription = longDescription; 
-        this.category = category; 
+        this.longDescription = longDescription;
+        this.category = category;
         this.images = images;
-        this._id = _id;
+
     }
 
 
@@ -32,8 +32,8 @@ const ProductSchema = new mongoose.Schema({
     category:{type:String,required:true},//Loại
     images:{type:Array,required:true},
 },
-{
-   timestamps:true
-});
+    {
+        timestamps: true
+    });
 
-export default mongoose.model<cellphone>('Product',ProductSchema)
+export default mongoose.model<cellphone>('Product', ProductSchema)
