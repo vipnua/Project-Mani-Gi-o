@@ -8,7 +8,6 @@ import mongoose from 'mongoose';
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json({ limit: '50mb' }));
-
 app.use(cors());
 app.use(morgan('common'));
 app.use(express.json());

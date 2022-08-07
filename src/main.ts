@@ -3,12 +3,13 @@ import './style.css';
 import Navigo from 'navigo';
 import Home from './pages/home';
 import signUp from './pages/signup';
-import homeadmin from './pages/admin/home';
 import addProduct from './pages/admin/add';
 import updateProduct from './pages/admin/update';
 import productDetail from './pages/detail';
+import homeadmin from './pages/admin/product-manage';
+import HomeMangage from './pages/admin/home';
 // import express from 'express';
-const router = new Navigo('/');
+const router = new Navigo('/', { linksSelector: "a" });
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
   render: (id: any) => Promise<string>;
@@ -21,12 +22,11 @@ const print = async (component: ComponentBase, params?: any) => {
   }
 }
 
-
-
 router.on({
   '/': () => print(Home, ""),
   '/product/:id': (param: any) => { const id = +param.data.id; print(productDetail, id); },
-  '/admin': () => print(homeadmin, ""),
+  '/admin': () => print(HomeMangage, ""),
+  '/admin/product': () => print(homeadmin, ""),
   '/admin/add': () => print(addProduct, ""),
   '/admin/update/:id': (param: any) => { const id = param.data.id; print(updateProduct, id); },
   '/signup': () => print(signUp, ''),

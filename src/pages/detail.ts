@@ -1,14 +1,15 @@
-import { apiGet, getOne } from "../api/products";
+import { getOne, Searchbycate } from "../api/products";
 import headerClient from "../components/client/header";
 import { priceToVnd } from "../config";
 import { Product } from "../models/products";
 
-const productDetail ={
-   async render(id:any){
-    const data = await (await getOne(id)).data;
-    const likedata= await apiGet(`/products?category=${data.category}`)
-    const like:Product[] = likedata.data;
-return /*html*/`
+const productDetail = {
+    async render(id: any) {
+        const data = await (await getOne(id)).data;
+        const likedata = await Searchbycate(`/product?${data.category}`)
+        console.log(likedata)
+        const like: Product[] = likedata.data;
+        return /*html*/`
 ${headerClient.render()}
     
     <div class="content pt-10 w-10/12 m-auto">
@@ -61,10 +62,10 @@ ${headerClient.render()}
             12312
         </div>
         <div class="longdescription py-3">
-            <span>${data.longdescription?data.longdescription:''}</span></span>
+            <span>${data.longdescription ? data.longdescription : ''}</span></span>
         </div>
     </div>
 `
-    } 
+    }
 }
 export default productDetail;
