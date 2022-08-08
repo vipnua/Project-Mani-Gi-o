@@ -15,7 +15,7 @@ export const signup = async (Req:Request,Res:Response) => {
         return Res.status(200).json({
             user: {
                 email: user.email,
-                name: user.name,
+                phone: user.phone,
                 role: user.role,
             },
         });

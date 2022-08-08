@@ -2,7 +2,8 @@
 import './style.css';
 import Navigo from 'navigo';
 import Home from './pages/home';
-import signUp from './pages/signup';
+import dangky from './pages/signup';
+import dangnhap from './pages/signin';
 import addProduct from './pages/admin/add';
 import updateProduct from './pages/admin/update';
 import productDetail from './pages/detail';
@@ -33,7 +34,7 @@ router.on({
   '/cartProduct':()=>print(cartProduct,''),
   '/admin/add': () => print(addProduct, ""),
   '/admin/update/:id': (param: any) => { const id = param.data.id; print(updateProduct, id); },
-  '/signup': () => print(signUp, ''),
-
+  '/signup': () => print(dangky, ''),
+  '/signin': () => print(dangnhap, ''),
 })
 router.resolve();

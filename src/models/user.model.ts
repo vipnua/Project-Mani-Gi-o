@@ -2,11 +2,11 @@ import mongoose from 'mongoose';
 //  import { BinaryLike, createHmac } from "crypto";
 import user from './user.interface';
 const userSchema = new mongoose.Schema({
-    name: {
+    phone: {
         type: String,
         required: true,
-        min: 6,
-        max: 255
+        min: 9,
+        max: 11
     },
     email: {
         type: String,
