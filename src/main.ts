@@ -9,8 +9,9 @@ import productDetail from './pages/detail';
 
 import homeadmin from './pages/admin/product-manage';
 import HomeMangage from './pages/admin/home';
+import cartProduct from './pages/cartProduct';
 // import express from 'express';
-const router = new Navigo('/', { linksSelector: "a" });
+const router = new Navigo('/', { linksSelector: "a",hash:true});
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 type ComponentBase = {
@@ -26,10 +27,10 @@ const print = async (component: ComponentBase, params?: any) => {
 
 router.on({
   '/': () => print(Home, ""),
-  '/product/:id': (param: any) => { const id = +param.data.id; print(productDetail, id); },
+  '/product/:id': (param: any) => { let id = param.data.id; print(productDetail, id); },
   '/admin': () => print(HomeMangage, ""),
   '/admin/product': () => print(homeadmin, ""),
-
+  '/cartProduct':()=>print(cartProduct,''),
   '/admin/add': () => print(addProduct, ""),
   '/admin/update/:id': (param: any) => { const id = param.data.id; print(updateProduct, id); },
   '/signup': () => print(signUp, ''),

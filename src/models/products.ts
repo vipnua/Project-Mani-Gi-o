@@ -7,6 +7,7 @@ export class Product {
     category: String;
 
     images?: any;
+    id: any;
     _id: String;
     constructor(name:String, originalPrice:Number,sellerPrice:Number,description:String,longDescription:String,category:String,images:any,_id:String) 
     {
@@ -20,8 +21,6 @@ export class Product {
         this.images = images;
         this._id = _id;
     }
-
-
 }
 import cellphone from './product.interface';
 import mongoose from 'mongoose';
