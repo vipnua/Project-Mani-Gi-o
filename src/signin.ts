@@ -1,4 +1,5 @@
-import { signin } from "../api/products";
+import { signin } from "./api/products";
+
 
 
 
@@ -86,7 +87,7 @@ const Signin = {
 
                     const Signin = await signin(user)
                     localStorage.setItem('user', JSON.stringify(Signin));
-                     
+
 
 
                 }

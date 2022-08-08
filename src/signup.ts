@@ -1,4 +1,4 @@
-import { signup } from "../api/products";
+import { signup } from "./api/products";
 
 
 
