@@ -25,3 +25,11 @@ export const searchq = (url:string) => {
 export const Searchbycate = (url:string) => {
     return instance.post(`/product?${url}`);
 }
+
+export const signup = (data: any) => {
+    return instance.post(`/signup/`, data);
+}
+
+export const signin = (data: any) => {
+    return instance.post(`/signin/`, data);
+}
