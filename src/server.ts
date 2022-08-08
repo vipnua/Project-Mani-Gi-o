@@ -4,7 +4,7 @@ const app = express();
 import 'dotenv/config';
 const morgan = require('morgan')
 import productRouter from "./routes/product.route";
-import userRouter from "./routes/auth.route"
+import userRouter from "./routes/auth.route";
 import mongoose from 'mongoose';
 var bodyParser = require('body-parser');
 
