@@ -20,14 +20,18 @@
     "vite": "^3.0.0"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/validator": "^13.7.5",
     "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
-    "mongoose": "^6.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.5.1",
     "morgan": "^1.10.0",
     "navigo": "^8.11.1",
     "nodemon": "^2.0.19",
-    "rater-js": "^1.0.1"
+    "rater-js": "^1.0.1",
+    "validator": "^13.7.0"
   }
 }

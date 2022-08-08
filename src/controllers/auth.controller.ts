@@ -1,9 +1,11 @@
+
 import User from "../models/auth";
 // import jwt from "jsonwebtoken";
 const jwt = require("jsonwebtoken");
 import { Request, Response } from 'expRess';
 
 export const signup = async (Req: Request, Res: Response) => {
+
     try {
         const existEmail = await User.findOne({ email: Req.body.email }).exec();
         if (existEmail) {
@@ -18,6 +20,7 @@ export const signup = async (Req: Request, Res: Response) => {
             user: {
                 email: user.email,
                 name: user.name,
+                phone: user.phone,
                 role: user.role,
             },
         });
@@ -28,7 +31,9 @@ export const signup = async (Req: Request, Res: Response) => {
         });
     }
 };
+
 export const signin = async (Req: Request, Res: Response) => {
+
     try {
         const user = await User.findOne({ email: Req.body.email }).exec();
         if (!user) {

@@ -1,21 +1,21 @@
 import cellphone from '../models/products';
-import { Request,Response } from 'express';
-export const list = async (Req:Request,Res:Response) => {
-    try{
+import { Request, Response } from 'express';
+export const list = async (Req: Request, Res: Response) => {
+    try {
         const product = await cellphone.find();
         Res.json({
             product
         })
         Req;
     }
-    catch(error){
+    catch (error) {
         Res.status(400).json({
             error: "Không có Product nào",
         });
     }
-   
+
 }
-export const Read = async (Req:Request,Res:Response) => {
+export const Read = async (Req: Request, Res: Response) => {
     try {
         const id = Req.params.id
         const product = await cellphone.findOne({ _id: id }).exec()
@@ -27,9 +27,10 @@ export const Read = async (Req:Request,Res:Response) => {
     }
 }
 
-export const Add = async (Req:Request,Res:Response) => {
+export const Add = async (Req: Request, Res: Response) => {
     try {
         const product = await new cellphone(Req.body).save()
+        console.log(product);
         Res.json(product)
     } catch (error) {
         Res.status(400).json({
@@ -38,7 +39,7 @@ export const Add = async (Req:Request,Res:Response) => {
     }
 }
 
-export const Update = async (Req:Request,Res:Response) => {
+export const Update = async (Req: Request, Res: Response) => {
     try {
         const id = Req.params.id
         const product = await cellphone.findOneAndUpdate({ _id: id }, Req.body, { new: true }).exec()
@@ -50,7 +51,7 @@ export const Update = async (Req:Request,Res:Response) => {
     }
 }
 
-export const Delete = async (Req:Request,Res:Response) => {
+export const Delete = async (Req: Request, Res: Response) => {
     try {
         const id = Req.params.id
         const productList = await cellphone.find();
@@ -65,6 +66,7 @@ export const Delete = async (Req:Request,Res:Response) => {
         });
     }
 }
+
 export const Search = async (Req:Request,Res:Response) =>{
     try{
         const getq = Req.originalUrl;const localword = getq.search("q?")+1;       

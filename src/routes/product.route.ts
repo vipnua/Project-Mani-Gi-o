@@ -1,3 +1,4 @@
+
 import express from "express";
 import { list, Read, Add, Delete, Update, Search, Searchbycate } from '../controllers/product.controller';
 const router = express.Router();
